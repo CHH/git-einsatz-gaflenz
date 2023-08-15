@@ -1,0 +1,50 @@
+# This is a basic workflow to help you get started with Actions
+
+name: "Gaflenz: Tägliche Einsätze"
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  schedule:
+    - cron: '19 * * * *'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - uses: actions/cache@v3
+        with:
+          path: |
+            data/json_taeglich.etag
+          key: ${{ runner.os }}-json-taeglich-etag
+
+      # Runs a single command using the runners shell
+      - name: Download data
+        run: |
+          curl --etag-save ./data/json_taeglich.etag \
+            --etag-compare ./data/json_taeglich.etag \
+            https://cf-intranet.ooelfv.at/webext2/rss/json_taeglich.txt -o ./data/json_taeglich.json
+          mv ./data/json_taeglich.json ./data/json_taeglich.json.tmp
+          cat ./data/json_taeglich.json.tmp | jq -S '.einsaetze = (.einsaetze | map(select(any(.einsatz.feuerwehrenarray[]; .fwname == "FF Gaflenz" or .fwname == "FF Lindau-Neudorf"))) | sort_by(.einsatz.startzeit) ) | del(.pubDate)' > ./data/json_taeglich.json
+          rm ./data/json_taeglich.json.tmp
+
+      # Runs a set of commands using the runners shell
+      - name: Commit and push if changed
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "bot@hochstrasser.io"
+          git add -A
+          timestamp=$(date -u)
+          git commit -m "Gaflenz/Aktueller Tag: ${timestamp}" || exit 0
+          git push

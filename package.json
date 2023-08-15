@@ -1,0 +1,23 @@
+{
+  "name": "git-einsatz-gaflenz",
+  "version": "1.0.0",
+  "description": "FF Gaflenz Einsätze",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "iles dev",
+    "build": "iles build",
+    "preview": "iles preview"
+  },
+  "author": "Christoph Hochstrasser <christoph@hochstrasser.io>",
+  "license": "CC-BY-4.0",
+  "devDependencies": {
+    "autoprefixer": "^10.4.15",
+    "collect.js": "^4.36.1",
+    "dayjs": "^1.11.9",
+    "postcss": "^8.4.27",
+    "tailwindcss": "^3.3.3",
+    "vite-plugin-full-reload": "^1.0.5",
+    "iles": "0.9.5"
+  }
+}
