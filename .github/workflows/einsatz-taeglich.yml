@@ -29,7 +29,6 @@ jobs:
             data/json_taeglich.etag
           key: ${{ runner.os }}-json-taeglich-etag
 
-      # Runs a single command using the runners shell
       - name: Download data
         run: |
           curl --etag-save ./data/json_taeglich.etag \
@@ -39,7 +38,6 @@ jobs:
           cat ./data/json_taeglich.json.tmp | jq -S '.einsaetze = (.einsaetze//{} | map(select(any(.einsatz.feuerwehrenarray[]; .fwname == "FF Gaflenz" or .fwname == "FF Lindau-Neudorf"))) | sort_by(.einsatz.startzeit) ) | del(.pubDate) | del(.cnt_einsaetze) | del(.cnt_feuerwehren)' > ./data/json_taeglich.json
           rm ./data/json_taeglich.json.tmp
 
-      # Runs a set of commands using the runners shell
       - name: Commit and push if changed
         run: |
           git config user.name "GitHub Actions"
