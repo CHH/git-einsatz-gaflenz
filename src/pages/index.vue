@@ -24,7 +24,9 @@ const ops = site.operations.current?.einsaetze ?? []
                     :key="op.einsatz.num1"
                 >
                     <h2 class="text-lg font-bold">
-                        {{ op.einsatz.einsatzsubtyp.text }}
+                        <a :href="`/einsatz/${op.einsatz.num1}`">
+                            {{ op.einsatz.einsatzsubtyp.text }}
+                        </a>
                     </h2>
                     <p class="text-sm text-gray-500">
                         {{ op.einsatz.einsatztyp.text }}
