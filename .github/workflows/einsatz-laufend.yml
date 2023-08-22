@@ -36,7 +36,7 @@ jobs:
             --etag-compare ./data/json_laufend.etag \
             https://cf-intranet.ooelfv.at/webext2/rss/json_laufend.txt -o ./data/json_laufend.json || true
           mv ./data/json_laufend.json ./data/json_laufend.json.tmp
-          cat ./data/json_laufend.json.tmp | jq -S '.einsaetze = (.einsaetze | map(select(any(.einsatz.feuerwehrenarray[]; .fwname == "FF Gaflenz" or .fwname == "FF Lindau-Neudorf"))) | sort_by(.einsatz.startzeit) ) | del(.pubDate) | del(.cnt_einsaetze) | del(.cnt_feuerwehren)' > ./data/json_laufend.json
+          cat ./data/json_laufend.json.tmp | jq -S '.einsaetze = (.einsaetze//{} | map(select(any(.einsatz.feuerwehrenarray[]; .fwname == "FF Gaflenz" or .fwname == "FF Lindau-Neudorf"))) | sort_by(.einsatz.startzeit) ) | del(.pubDate) | del(.cnt_einsaetze) | del(.cnt_feuerwehren)' > ./data/json_laufend.json
           rm ./data/json_laufend.json.tmp
 
       # Runs a set of commands using the runners shell
