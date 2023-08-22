@@ -2,3 +2,5 @@
 /.vitepress/dist
 *.etag
 node_modules
+/*.d.ts
+/dist

@@ -1,9 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "site/**/*.md",
-    "site/**/*.{vue,js}",
-    ".vitepress/**/*.{vue,js}",
+    "src/**/*.md",
+    "src/**/*.{vue,js}",
   ],
   theme: {
     extend: {},
