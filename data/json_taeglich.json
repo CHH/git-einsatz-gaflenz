@@ -86,10 +86,10 @@
             "fwnr": "411317"
           }
         },
-        "inzeit": "",
+        "inzeit": "Mon, 02 Oct 2023 17:47:10 +0200",
         "num1": "E231000124",
         "startzeit": "Mon, 02 Oct 2023 14:25:14 +0200",
-        "status": "offen",
+        "status": "abgeschlossen",
         "wgs84": {
           "lat": 47.946631,
           "lng": 14.35931
